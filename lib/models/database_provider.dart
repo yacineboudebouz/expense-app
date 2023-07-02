@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'expense.dart';
+
 class DatabaseProvider with ChangeNotifier {
   List<ExpenseCategory> _categories = [];
   List<ExpenseCategory> get categories => _categories;
+
+  List<Expense> _expense = [];
+  List<Expense> get expenses => _expense;
   Database? _database;
   Future<Database> get database async {
     // databse directory
@@ -59,6 +64,45 @@ class DatabaseProvider with ChangeNotifier {
             (index) => ExpenseCategory.fromString(converted[index]));
         _categories = nList;
         return _categories;
+      });
+    });
+  }
+
+  Future<void> updateCategory(
+      String category, int nEntries, double nTotalAmount) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn
+          .update(
+            cTable,
+            {
+              'entries': nEntries,
+              'totalAmount': nTotalAmount,
+            },
+            where: 'title == ?',
+            whereArgs: [category],
+          )
+          .then((value) {});
+    });
+  }
+
+  // method to add
+  Future<void> addExpense(Expense exp) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn
+          .insert(eTable, exp.toMap(),
+              conflictAlgorithm: ConflictAlgorithm.replace)
+          .then((generatedId) {
+        final file = Expense(
+            id: generatedId,
+            title: exp.title,
+            amount: exp.amount,
+            date: exp.date,
+            category: exp.category);
+
+        _expense.add(file);
+        notifyListeners();
       });
     });
   }
