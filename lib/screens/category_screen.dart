@@ -1,3 +1,4 @@
+import 'package:expenseapp/widgets/category_fetcher.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Category Screen'),
       ),
+      body: CategoryFetcher(),
     );
   }
 }

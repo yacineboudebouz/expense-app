@@ -1,9 +1,10 @@
 import 'package:expenseapp/constants/icons.dart';
 import 'package:expenseapp/models/ex_category.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseProvider {
+class DatabaseProvider with ChangeNotifier {
   List<ExpenseCategory> _categories = [];
   List<ExpenseCategory> get categories => _categories;
   Database? _database;
@@ -29,7 +30,7 @@ class DatabaseProvider {
     await db.transaction((txn) async {
       await txn.execute(''' CREATE TABLE $cTable(
       title TEXT,
-      entries INTEGER
+      entries INTEGER,
       totalAmount TEXT
     )''');
       await txn.execute('''CREATE TABLE $eTable(
@@ -41,7 +42,7 @@ class DatabaseProvider {
     )''');
       for (int i = 0; i < icons.length; i++) {
         await txn.insert(cTable, {
-          'title': icons.keys.toList(),
+          'title': icons.keys.toList()[i],
           'entries': 0,
           'totalAmount': (0.0).toString(),
         });
@@ -56,6 +57,8 @@ class DatabaseProvider {
         final converted = List<Map<String, dynamic>>.from(data);
         List<ExpenseCategory> nList = List.generate(converted.length,
             (index) => ExpenseCategory.fromString(converted[index]));
+        _categories = nList;
+        return _categories;
       });
     });
   }

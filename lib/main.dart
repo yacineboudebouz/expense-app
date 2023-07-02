@@ -1,8 +1,13 @@
+import 'package:expenseapp/models/database_provider.dart';
 import 'package:expenseapp/screens/category_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => DatabaseProvider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

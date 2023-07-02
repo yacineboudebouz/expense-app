@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:expenseapp/constants/icons.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +7,7 @@ class ExpenseCategory {
   final String title;
   int entries = 0;
   double totalamount = 0.0;
-  final IconData icon;
+  IconData icon;
 
   ExpenseCategory({
     required this.title,
@@ -24,7 +26,7 @@ class ExpenseCategory {
       ExpenseCategory(
         title: value['title'],
         entries: value['entries'],
-        totalamount: value['totalamount'],
+        totalamount: double.parse(value['totalAmount']),
         icon: icons[value['title']]!,
       );
 }
