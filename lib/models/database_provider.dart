@@ -10,8 +10,8 @@ class DatabaseProvider with ChangeNotifier {
   List<ExpenseCategory> _categories = [];
   List<ExpenseCategory> get categories => _categories;
 
-  List<Expense> _expense = [];
-  List<Expense> get expenses => _expense;
+  List<Expense> _expenses = [];
+  List<Expense> get expenses => _expenses;
   Database? _database;
   Future<Database> get database async {
     // databse directory
@@ -74,15 +74,21 @@ class DatabaseProvider with ChangeNotifier {
     await db.transaction((txn) async {
       await txn
           .update(
-            cTable,
-            {
-              'entries': nEntries,
-              'totalAmount': nTotalAmount,
-            },
-            where: 'title == ?',
-            whereArgs: [category],
-          )
-          .then((value) {});
+        cTable,
+        {
+          'entries': nEntries,
+          'totalAmount': nTotalAmount.toString(),
+        },
+        where: 'title == ?',
+        whereArgs: [category],
+      )
+          .then((value) {
+        var file =
+            _categories.firstWhere((element) => element.title == category);
+        file.entries = nEntries;
+        file.totalamount = nTotalAmount;
+        notifyListeners();
+      });
     });
   }
 
@@ -101,9 +107,20 @@ class DatabaseProvider with ChangeNotifier {
             date: exp.date,
             category: exp.category);
 
-        _expense.add(file);
+        _expenses.add(file);
         notifyListeners();
+        var data = calculateEntriesAndAmount(exp.category);
+        updateCategory(exp.category, data['entries'], data['totalAmount']);
       });
     });
+  }
+
+  Map<String, dynamic> calculateEntriesAndAmount(String category) {
+    double total = 0.0;
+    var list = _expenses.where((element) => element.title == category).toList();
+    for (final i in list) {
+      total += i.amount;
+    }
+    return {'entries': list.length, 'totalAmount': total};
   }
 }

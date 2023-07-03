@@ -40,7 +40,7 @@ class _CategoryFetcherState extends State<CategoryFetcher> {
               return const CategoryList();
             }
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
