@@ -1,8 +1,7 @@
-import 'package:expenseapp/models/ex_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/database_provider.dart';
+import '../../models/database_provider.dart';
 import 'category_card.dart';
 
 class CategoryList extends StatelessWidget {
