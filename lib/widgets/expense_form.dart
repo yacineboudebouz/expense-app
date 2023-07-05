@@ -13,7 +13,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
   final _title = TextEditingController();
   final _amount = TextEditingController();
   DateTime? _date;
-  String? _initialValue = 'Others';
+  String? _initialValue;
 
   _pickDate() async {
     DateTime? _pickedDate = await showDatePicker(
@@ -28,6 +28,13 @@ class _ExpenseFormState extends State<ExpenseForm> {
       });
     }
   }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _initialValue = 'Others';
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -97,19 +104,15 @@ class _ExpenseFormState extends State<ExpenseForm> {
                 Expanded(
                     child: DropdownButton(
                   items: icons.keys
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e.toString(),
-                          child: Text(e),
-                        ),
-                      )
+                      .map((e) => DropdownMenuItem<String>(
+                            value: e,
+                            child: Text(e),
+                          ))
                       .toList(),
                   value: _initialValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _initialValue = value!;
-                    });
-                  },
+                  hint: const Text('Other'),
+                  isDense: true,
+                  onChanged: (value) => setState(() => _initialValue = value!),
                 ))
               ],
             )
