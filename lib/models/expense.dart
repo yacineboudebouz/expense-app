@@ -13,8 +13,8 @@ class Expense {
   });
   Map<String, dynamic> toMap() => {
         'title': title,
-        'amount': amount,
-        'date': date,
+        'amount': amount.toString(),
+        'date': date.toString(),
         'category': category,
       };
   factory Expense.fromString(Map<String, dynamic> value) => Expense(

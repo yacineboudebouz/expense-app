@@ -39,9 +39,9 @@ class DatabaseProvider with ChangeNotifier {
       totalAmount TEXT
     )''');
       await txn.execute('''CREATE TABLE $eTable(
-      id INTEGER,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT,
-      anmount TEXT,
+      amount TEXT,
       date TEXT,
       category TEXT
     )''');
@@ -117,7 +117,7 @@ class DatabaseProvider with ChangeNotifier {
 
   Map<String, dynamic> calculateEntriesAndAmount(String category) {
     double total = 0.0;
-    var list = _expenses.where((element) => element.title == category).toList();
+    var list = _expenses.where((element) => element.category == category);
     for (final i in list) {
       total += i.amount;
     }

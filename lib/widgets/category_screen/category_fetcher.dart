@@ -21,7 +21,6 @@ class _CategoryFetcherState extends State<CategoryFetcher> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _categoryList = _getCategoryList();
   }
@@ -37,7 +36,7 @@ class _CategoryFetcherState extends State<CategoryFetcher> {
                 child: Text(snapshots.error.toString()),
               );
             } else {
-              return const CategoryList();
+              return CategoryList();
             }
           } else {
             return const Center(

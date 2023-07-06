@@ -1,6 +1,9 @@
 import 'package:expenseapp/constants/icons.dart';
+import 'package:expenseapp/models/database_provider.dart';
+import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ExpenseForm extends StatefulWidget {
   const ExpenseForm({super.key});
@@ -38,6 +41,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DatabaseProvider>(context, listen: true);
     return Container(
       height: MediaQuery.of(context).size.height * 0.7,
       padding: const EdgeInsets.all(20),
@@ -113,8 +117,28 @@ class _ExpenseFormState extends State<ExpenseForm> {
                   hint: const Text('Other'),
                   isDense: true,
                   onChanged: (value) => setState(() => _initialValue = value!),
-                ))
+                )),
               ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                if (_title.text != '' || _amount.text != '') {
+                  final expense = Expense(
+                    id: 0,
+                    title: _title.text,
+                    amount: double.parse(_amount.text),
+                    date: _date != null ? _date! : DateTime.now(),
+                    category: _initialValue != null ? _initialValue! : 'Others',
+                  );
+                  provider.addExpense(expense);
+                  Navigator.of(context).pop();
+                }
+              },
+              icon: const Icon(Icons.add),
+              label: const Text('Add Expense'),
             )
           ],
         ),
