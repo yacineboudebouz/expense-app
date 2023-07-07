@@ -38,6 +38,8 @@ dependencies:
   sqflite: ^2.2.8+4
   path: ^1.8.3
   provider: ^6.0.5
+  intl: ^0.18.1
+  fl_chart: ^0.63.0
 
 dev_dependencies:
   flutter_test:

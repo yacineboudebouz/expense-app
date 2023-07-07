@@ -3,6 +3,7 @@ import 'package:expenseapp/models/database_provider.dart';
 import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ExpenseForm extends StatefulWidget {
@@ -91,7 +92,9 @@ class _ExpenseFormState extends State<ExpenseForm> {
               children: [
                 Expanded(
                     child: Text(
-                  _date != null ? _date.toString() : 'Date Time',
+                  _date != null
+                      ? DateFormat('MMMM dd, yyyy').format(_date!)
+                      : 'Date Time',
                   style: const TextStyle(fontSize: 20),
                 )),
                 IconButton(
