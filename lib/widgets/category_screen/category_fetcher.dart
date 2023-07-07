@@ -1,4 +1,5 @@
 import 'package:expenseapp/models/database_provider.dart';
+import 'package:expenseapp/widgets/category_screen/total_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,18 @@ class _CategoryFetcherState extends State<CategoryFetcher> {
                 child: Text(snapshots.error.toString()),
               );
             } else {
-              return const CategoryList();
+              return const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 250,
+                      child: TotalChart(),
+                    ),
+                    Expanded(child: CategoryList()),
+                  ],
+                ),
+              );
             }
           } else {
             return const Center(

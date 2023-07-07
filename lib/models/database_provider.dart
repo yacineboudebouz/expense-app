@@ -137,4 +137,9 @@ class DatabaseProvider with ChangeNotifier {
     }
     return {'entries': list.length, 'totalAmount': total};
   }
+
+  double calculateTotalExpenses() {
+    return _categories.fold(
+        0.0, (previousValue, element) => previousValue + element.totalamount);
+  }
 }

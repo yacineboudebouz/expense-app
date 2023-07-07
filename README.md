@@ -1,16 +1,18 @@
-# expenseapp
+# Expense App
 
-A new Flutter project.
+Expense App is a mobile application that helps you track and manage your expenses efficiently. It allows you to record your expenses, categorize them, and view insightful reports.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Add new expenses with details such as title, amount, date, and category.
+- Categorize expenses into predefined categories for better organization.
+- View a list of all expenses with filtering and sorting options.
+- Generate reports and visualize your expenses using [charts](https://pub.dev/packages/charts_flutter) and graphs.
+- Edit or delete existing expenses.
+- Backup and restore your expenses data.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter SDK: [Installation Guide](https://flutter.dev/docs/get-started/install)
+- Android Emulator or Physical Device
+- iOS Simulator or Physical Device (for iOS development)

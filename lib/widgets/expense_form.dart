@@ -134,7 +134,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
                     title: _title.text,
                     amount: double.parse(_amount.text),
                     date: _date != null ? _date! : DateTime.now(),
-                    category: _initialValue != null ? _initialValue! : 'Others',
+                    category: _initialValue != null ? _initialValue! : 'Other',
                   );
                   provider.addExpense(expense);
                   Navigator.of(context).pop();

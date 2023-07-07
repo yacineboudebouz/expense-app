@@ -1,5 +1,4 @@
 import 'package:expenseapp/screens/expenses_screen.dart';
-import 'package:expenseapp/widgets/category_screen/category_fetcher.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/ex_category.dart';
