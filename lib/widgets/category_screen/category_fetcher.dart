@@ -36,7 +36,7 @@ class _CategoryFetcherState extends State<CategoryFetcher> {
                 child: Text(snapshots.error.toString()),
               );
             } else {
-              return CategoryList();
+              return const CategoryList();
             }
           } else {
             return const Center(

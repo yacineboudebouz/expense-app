@@ -13,13 +13,18 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Category Screen'),
       ),
-      body: CategoryFetcher(),
+      body: const CategoryFetcher(),
       floatingActionButton: FloatingActionButton(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          ),
           child: const Icon(Icons.add),
           onPressed: () {
             showModalBottomSheet(
               context: context,
-              builder: (_) => ExpenseForm(),
+              builder: (_) => const ExpenseForm(),
               isScrollControlled: true,
             );
           }),
