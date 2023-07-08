@@ -11,7 +11,19 @@ class DatabaseProvider with ChangeNotifier {
   List<ExpenseCategory> get categories => _categories;
 
   List<Expense> _expenses = [];
-  List<Expense> get expenses => _expenses;
+  List<Expense> get expenses => _searchText != ''
+      ? _expenses
+          .where((element) =>
+              element.title.toLowerCase().contains(_searchText.toLowerCase()))
+          .toList()
+      : _expenses;
+  String _searchText = '';
+  String get searchText => _searchText;
+  set searchText(String value) {
+    _searchText = value;
+    notifyListeners();
+  }
+
   Database? _database;
   Future<Database> get database async {
     // databse directory

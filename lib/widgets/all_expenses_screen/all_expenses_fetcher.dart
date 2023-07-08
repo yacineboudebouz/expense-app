@@ -3,6 +3,8 @@ import 'package:expenseapp/widgets/all_expenses_screen/all_expenses_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'expense_search.dart';
+
 class AllExpensesFetcher extends StatefulWidget {
   const AllExpensesFetcher({
     super.key,
@@ -36,7 +38,15 @@ class _AllExpensesFetcherState extends State<AllExpensesFetcher> {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             } else {
-              return const AllExpensesList();
+              return const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    SearchExpense(),
+                    Expanded(child: AllExpensesList()),
+                  ],
+                ),
+              );
             }
           } else {
             return const CircularProgressIndicator();
