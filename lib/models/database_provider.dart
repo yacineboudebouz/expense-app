@@ -142,4 +142,21 @@ class DatabaseProvider with ChangeNotifier {
     return _categories.fold(
         0.0, (previousValue, element) => previousValue + element.totalamount);
   }
+
+  List<Map<String, dynamic>> calculateWeekExpenses() {
+    List<Map<String, dynamic>> data = [];
+    for (int i = 0; i < 7; i++) {
+      double total = 0.0;
+      final weekDay = DateTime.now().subtract(Duration(days: i));
+      for (int j = 0; j < _expenses.length; j++) {
+        if (_expenses[j].date.year == weekDay.year &&
+            _expenses[j].date.month == weekDay.month &&
+            _expenses[j].date.day == weekDay.day) {
+          total += _expenses[j].amount;
+        }
+      }
+      data.add({'day': weekDay, 'amount': total});
+    }
+    return data;
+  }
 }

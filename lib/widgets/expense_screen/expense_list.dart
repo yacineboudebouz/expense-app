@@ -11,6 +11,8 @@ class ExpenseList extends StatelessWidget {
     return Consumer<DatabaseProvider>(builder: (_, db, __) {
       var list = db.expenses;
       return ListView.builder(
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         itemBuilder: (context, index) => ExpenseCard(expense: list[index]),
         itemCount: list.length,
       );

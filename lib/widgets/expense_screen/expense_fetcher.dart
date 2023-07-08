@@ -1,4 +1,5 @@
 import 'package:expenseapp/models/database_provider.dart';
+import 'package:expenseapp/widgets/expense_screen/expense_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,17 @@ class _ExpenseFetcherState extends State<ExpenseFetcher> {
                 child: Text(snapshot.error.toString()),
               );
             } else {
-              return const ExpenseList();
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 250.0,
+                    child: ExpenseChart(
+                      category: widget.category,
+                    ),
+                  ),
+                  Expanded(child: ExpenseList()),
+                ],
+              );
             }
           } else {
             return const CircularProgressIndicator();
