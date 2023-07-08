@@ -82,6 +82,19 @@ class DatabaseProvider with ChangeNotifier {
     });
   }
 
+  Future<List<Expense>> fetchAllExpenses() async {
+    final db = await database;
+    return await db.transaction((txn) async {
+      return await txn.query(eTable).then((value) {
+        final converted = List<Map<String, dynamic>>.from(value);
+        List<Expense> nList = List.generate(
+            converted.length, (index) => Expense.fromString(converted[index]));
+        _expenses = nList;
+        return _expenses;
+      });
+    });
+  }
+
   Future<void> updateCategory(
       String category, int nEntries, double nTotalAmount) async {
     final db = await database;
