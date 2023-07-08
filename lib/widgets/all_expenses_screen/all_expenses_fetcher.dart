@@ -36,10 +36,10 @@ class _AllExpensesFetcherState extends State<AllExpensesFetcher> {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             } else {
-              return AllExpensesList();
+              return const AllExpensesList();
             }
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }

@@ -13,6 +13,7 @@ class AllExpensesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DatabaseProvider>(builder: (_, db, __) {
       var list = db.expenses;
+      list.sort((a, b) => b.date.compareTo(a.date));
       return ListView.builder(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
