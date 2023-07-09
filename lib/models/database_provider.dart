@@ -94,6 +94,24 @@ class DatabaseProvider with ChangeNotifier {
     });
   }
 
+  Future<void> deleteExpense(int expId, String category, double amount) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn
+          .delete(eTable, where: 'id == ?', whereArgs: [expId]).then((value) {
+        _expenses.removeWhere((element) => element.id == expId);
+        notifyListeners();
+
+        var ex = findCategory(category);
+        updateCategory(category, ex.entries - 1, ex.totalamount - amount);
+      });
+    });
+  }
+
+  ExpenseCategory findCategory(String title) {
+    return _categories.firstWhere((element) => element.title == title);
+  }
+
   Future<List<Expense>> fetchAllExpenses() async {
     final db = await database;
     return await db.transaction((txn) async {
